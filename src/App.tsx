@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from './components/theme-provider'
 import { Toaster } from './components/ui/toaster'
 import { useDatabaseInit } from './hooks/use-database-init'
+import { extensionCommunication } from './utils/extension-communication'
 import Layout from './components/layout'
 import HomePage from './pages/home-page'
 import ConversationPage from './pages/conversation-page'
@@ -44,21 +45,51 @@ function DatabaseInitializer({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 
+function ExtensionInitializer({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    // 初始化扩展通信
+    console.log('Initializing extension communication in App...');
+
+    // 监听扩展消息
+    const handleConversationDetected = (event: CustomEvent) => {
+      console.log('New conversation from extension:', event.detail);
+      // 这里可以触发状态更新或通知
+    };
+
+    const handleConversationUpdated = (event: CustomEvent) => {
+      console.log('Conversation updated from extension:', event.detail);
+      // 这里可以更新UI中的对话数据
+    };
+
+    window.addEventListener('conversationDetected', handleConversationDetected as EventListener);
+    window.addEventListener('conversationUpdated', handleConversationUpdated as EventListener);
+
+    return () => {
+      window.removeEventListener('conversationDetected', handleConversationDetected as EventListener);
+      window.removeEventListener('conversationUpdated', handleConversationUpdated as EventListener);
+    };
+  }, []);
+
+  return <>{children}</>;
+}
+
 function App() {
   return (
     <ThemeProvider defaultTheme="system" storageKey="chatmergex-theme">
       <DatabaseInitializer>
-        <Router>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/conversation/:id" element={<ConversationPage />} />
-              <Route path="/settings" element={<SettingsPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </Layout>
-          <Toaster />
-        </Router>
+        <ExtensionInitializer>
+          <Router>
+            <Layout>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/conversation/:id" element={<ConversationPage />} />
+                <Route path="/settings" element={<SettingsPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Layout>
+            <Toaster />
+          </Router>
+        </ExtensionInitializer>
       </DatabaseInitializer>
     </ThemeProvider>
   )

@@ -6,6 +6,7 @@ import { useTheme } from './theme-provider'
 import FilterDropdown from './filter-dropdown'
 import PlatformSelector from './platform-selector'
 import SyncStatusIndicator from './sync-status'
+import { ExtensionStatus } from './extension-status'
 
 interface FilterState {
   dateRange: 'all' | 'today' | 'week' | 'month' | 'custom'
@@ -141,6 +142,11 @@ function Header() {
         <Button variant="ghost" size="icon">
           <Settings className="size-5" />
         </Button>
+      </div>
+
+      {/* 扩展状态指示器 - 下方显示 */}
+      <div className="hidden md:block">
+        <ExtensionStatus />
       </div>
 
       {/* 移动端扩展菜单 */}
