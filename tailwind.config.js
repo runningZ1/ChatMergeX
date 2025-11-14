@@ -63,6 +63,12 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      gridTemplateColumns: {
+        'layout': 'var(--grid-layout-columns)',
+      },
+      gridTemplateAreas: {
+        'layout': 'var(--grid-layout-areas)',
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -72,12 +78,84 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "slide-in-right": {
+          from: { transform: "translateX(100%)" },
+          to: { transform: "translateX(0)" },
+        },
+        "slide-out-right": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(100%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "slide-in-right": "slide-in-right 0.3s ease-out",
+        "slide-out-right": "slide-out-right 0.3s ease-out",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function({ addUtilities, theme }) {
+      const newUtilities = {
+        '.grid-areas-layout': {
+          gridTemplateAreas: `
+            "header header header"
+            "sidebar main right-panel"
+          `,
+        },
+        '.grid-cols-layout': {
+          gridTemplateColumns: 'auto 1fr auto',
+        },
+        '.grid-in-sidebar': {
+          gridArea: 'sidebar',
+        },
+        '.grid-in-main': {
+          gridArea: 'main',
+        },
+        '.grid-in-right-panel': {
+          gridArea: 'right-panel',
+        },
+        '.grid-in-header': {
+          gridArea: 'header',
+        },
+        // Responsive variations
+        '@media (max-width: 767px)': {
+          '.grid-areas-layout': {
+            gridTemplateAreas: `
+              "header"
+              "main"
+            `,
+          },
+          '.grid-cols-layout': {
+            gridTemplateColumns: '1fr',
+          },
+        },
+        '@media (min-width: 768px) and (max-width: 1023px)': {
+          '.grid-areas-layout': {
+            gridTemplateAreas: `
+              "sidebar main"
+              "sidebar main"
+            `,
+          },
+          '.grid-cols-layout': {
+            gridTemplateColumns: 'auto 1fr',
+          },
+        },
+        '@media (min-width: 1024px)': {
+          '.grid-areas-layout': {
+            gridTemplateAreas: `
+              "header header header"
+              "sidebar main right-panel"
+            `,
+          },
+          '.grid-cols-layout': {
+            gridTemplateColumns: 'auto 1fr auto',
+          },
+        },
+      }
+      addUtilities(newUtilities)
+    }
+  ],
 }

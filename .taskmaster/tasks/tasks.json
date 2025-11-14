@@ -35,8 +35,59 @@
         "dependencies": [
           1
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Enhance header component with filters and sync functionality",
+            "description": "Extend the existing header component to include advanced filters, platform selection, and enhanced sync status indicators",
+            "dependencies": [],
+            "details": "The current header has basic search and theme switching. Add filter dropdown for date ranges, platforms, and conversation types. Implement sync status component with real-time indicators, last sync timestamp, and manual sync triggers. Add platform toggle buttons for ChatGPT, Doubao, Yuanbao, Gemini, and Grok. Ensure responsive design for mobile with collapsible elements.",
+            "status": "done",
+            "testStrategy": "Test filter functionality, sync status updates, platform toggles, and responsive behavior across mobile, tablet, and desktop viewports"
+          },
+          {
+            "id": 2,
+            "title": "Add collapsible functionality to the sidebar component",
+            "description": "Implement collapse/expand mechanism for the left sidebar with responsive breakpoints and state persistence",
+            "dependencies": [],
+            "details": "The current sidebar has fixed width (w-64). Add collapse button at the top, implement smooth transitions using CSS transitions, store collapse state in localStorage, show only icons when collapsed (folder icons, plus button), and ensure proper responsive breakpoints - auto-collapse on mobile (<768px), show full sidebar on tablet (768px-1024px), and optional sidebar on desktop (>1024px).",
+            "status": "done",
+            "testStrategy": "Test collapse/expand animations, state persistence across sessions, responsive breakpoints, and accessibility with keyboard navigation"
+          },
+          {
+            "id": 3,
+            "title": "Implement conversation list component for center area",
+            "description": "Create the main conversation list with table view, virtual scrolling, and bulk selection functionality",
+            "dependencies": [],
+            "details": "The current layout lacks a conversation list component. Create a table-based conversation list with columns: checkbox, title, platform badge, last message preview, date, message count, and status. Implement virtual scrolling using react-window or similar for performance with thousands of conversations. Add bulk selection with keyboard shortcuts (Ctrl+A, Shift+Click), sortable columns, and inline filtering. Ensure the list fills the remaining space in the center area.",
+            "status": "done",
+            "testStrategy": "Test virtual scrolling performance, bulk selection accuracy, sorting functionality, and filtering with large datasets"
+          },
+          {
+            "id": 4,
+            "title": "Enhance right panel with responsive behavior and proper integration",
+            "description": "Improve the right preview panel with better responsive design, loading states, and data integration",
+            "dependencies": [],
+            "details": "The current right panel has basic preview functionality. Add responsive behavior: hide by default on mobile, show as overlay on tablet, and fixed sidebar on desktop. Implement proper data integration with conversation selection, loading states for conversation content, error handling for failed loads, and empty state design. Add keyboard shortcuts for toggle (Ctrl+P) and maximize/minimize functionality. Ensure smooth transitions between collapsed and expanded states.",
+            "status": "done",
+            "testStrategy": "Test responsive breakpoints, loading states, error handling, keyboard shortcuts, and animation smoothness across different screen sizes"
+          },
+          {
+            "id": 5,
+            "title": "Implement responsive layout system with CSS Grid and breakpoints",
+            "description": "Refactor the layout component to use CSS Grid for better responsive control and add comprehensive breakpoint system",
+            "dependencies": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "details": "The current layout uses basic Flexbox. Refactor to CSS Grid with explicit grid-template-areas and responsive grid-template-columns. Define breakpoint system: mobile (<768px): single column with overlay panels; tablet (768px-1024px): two-column with optional right panel; desktop (>1024px): full three-column layout. Add container queries for component-level responsiveness and implement smooth transitions between breakpoints using CSS transitions and JavaScript event listeners.",
+            "status": "done",
+            "testStrategy": "Test layout integrity across all breakpoints, transition smoothness, component resizing, and overall responsive behavior"
+          }
+        ]
       },
       {
         "id": 4,
@@ -212,7 +263,7 @@
     ],
     "metadata": {
       "created": "2025-11-14T11:40:41.943Z",
-      "updated": "2025-11-14T12:12:07.220Z",
+      "updated": "2025-11-14T12:38:11.611Z",
       "description": "Tasks for master context"
     }
   }
