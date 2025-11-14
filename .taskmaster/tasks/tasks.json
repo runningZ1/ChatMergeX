@@ -1,0 +1,219 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Setup project foundation with React + TypeScript + Vite",
+        "description": "Initialize the React project with the specified tech stack and basic configuration",
+        "details": "Create a new React project using Vite with TypeScript template. Install and configure shadcn/ui, Tailwind CSS, React Router v6, Zustand for state management, and other essential dependencies. Set up ESLint, Prettier, and TypeScript strict mode configuration. Create the basic project structure with src/components, src/hooks, src/store, src/types, and src/utils directories.",
+        "testStrategy": "Verify the project builds successfully, TypeScript compilation works, and basic routing functions. Test that shadcn/ui components render correctly and Tailwind styles are applied.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Implement IndexedDB data layer with Dexie.js",
+        "description": "Set up local data storage using IndexedDB with Dexie.js wrapper for conversation data management",
+        "details": "Create a database schema for storing conversations with fields: id, title, platform, content, messages array, timestamps, folderId, and metadata. Implement CRUD operations, full-text search indexing, and query optimization. Set up data migration strategies for future schema changes. Create TypeScript interfaces for all data models.",
+        "testStrategy": "Unit tests for database operations including create, read, update, delete, search functionality. Test data persistence across browser sessions and query performance with large datasets.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Create core UI layout with three-column design",
+        "description": "Implement the main application layout with header, left sidebar for folders, center conversation list, and right preview panel",
+        "details": "Build the responsive three-column layout using CSS Grid and Flexbox. Create the header with logo, search bar, filters, and sync status. Implement the collapsible left sidebar for folder navigation. Design the center area for conversation list with table view. Add the optional right sidebar for conversation preview. Ensure proper responsive breakpoints for mobile, tablet, and desktop views.",
+        "testStrategy": "Visual regression tests for different screen sizes. Test sidebar collapse/expand functionality, responsive behavior, and layout integrity across various viewport dimensions.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Implement folder management system",
+        "description": "Create a hierarchical folder system for organizing conversations with tree navigation",
+        "details": "Build a folder tree component with support for creating, renaming, deleting folders and subfolders. Implement drag-and-drop functionality for moving conversations between folders. Add keyboard navigation and context menus. Store folder structure in IndexedDB with proper parent-child relationships. Include folder statistics (conversation counts) and search within folders.",
+        "testStrategy": "Test folder CRUD operations, tree navigation, drag-and-drop functionality, and keyboard shortcuts. Verify folder persistence and correct parent-child relationships.",
+        "priority": "medium",
+        "dependencies": [
+          2,
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Build conversation list component with virtual scrolling",
+        "description": "Create a high-performance conversation list table with sorting, filtering, and virtual scrolling",
+        "details": "Implement a table component showing platform icons, titles, message counts, timestamps, and actions. Add column sorting (time, title, platform), multi-select with shift/ctrl support, and bulk operations. Integrate react-window for virtual scrolling to handle 10,000+ conversations. Include hover states, selection indicators, and action buttons per row.",
+        "testStrategy": "Performance tests with large datasets (>10,000 items). Test sorting, filtering, selection, and bulk operations. Verify virtual scrolling efficiency and memory usage.",
+        "priority": "medium",
+        "dependencies": [
+          2,
+          3,
+          4
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Implement advanced search and filtering system",
+        "description": "Create comprehensive search functionality with full-text search, filters, and real-time results",
+        "details": "Build a global search component with real-time search as you type. Implement full-text search across conversation titles and content using IndexedDB FTS or custom indexing. Add filters for platform, date range (today, this week, this month, custom), and folder. Include search history, result highlighting, and saved searches. Optimize search performance with debouncing and result caching.",
+        "testStrategy": "Test search accuracy, performance with large datasets, filter combinations, and real-time search responsiveness. Verify search highlighting and result ranking.",
+        "priority": "medium",
+        "dependencies": [
+          2,
+          5
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Create conversation detail view with rich text rendering",
+        "description": "Build the conversation detail page with markdown support, code highlighting, and media rendering",
+        "details": "Implement a conversation view showing metadata (platform, dates, message count) and full conversation history. Use react-markdown for rendering markdown content with custom components for code blocks, links, and images. Integrate prism-react-renderer for syntax highlighting with multiple language support and theme switching. Add copy functionality for individual messages and entire conversations. Implement responsive layout for mobile and desktop.",
+        "testStrategy": "Test markdown rendering accuracy, code highlighting for various languages, image display, link functionality, and copy operations. Verify performance with long conversations and media-rich content.",
+        "priority": "medium",
+        "dependencies": [
+          2,
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Develop browser extension foundation (Manifest V3)",
+        "description": "Create the Chrome extension structure with content scripts, background service worker, and communication APIs",
+        "details": "Set up Manifest V3 extension with content script injection, background service worker, and popup UI. Implement secure communication between extension components and web app using postMessage and chrome.runtime APIs. Create platform detection logic for ChatGPT and Doubao. Implement permission handling and user consent flow. Add error handling and fallback mechanisms for CSP restrictions.",
+        "testStrategy": "Test extension installation, content script injection, platform detection, and communication with web app. Verify cross-origin messaging and error handling.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Implement ChatGPT conversation scraping",
+        "description": "Create content script to monitor and extract conversation data from ChatGPT interface",
+        "details": "Develop DOM mutation observers to detect new conversations and message updates in ChatGPT. Implement robust selectors for conversation titles, message content, timestamps, and metadata. Handle various ChatGPT UI layouts and conversation formats. Extract and preserve markdown formatting, code blocks, and embedded content. Implement retry logic for failed extractions and rate limiting to avoid platform detection.",
+        "testStrategy": "Test conversation extraction accuracy across different ChatGPT interfaces and conversation lengths. Verify handling of edge cases like deleted messages, editing, and various content types.",
+        "priority": "high",
+        "dependencies": [
+          8
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Implement Doubao conversation scraping",
+        "description": "Create content script to monitor and extract conversation data from Doubao interface",
+        "details": "Develop DOM observers specific to Doubao's interface patterns and selectors. Handle Doubao's unique conversation structure and any platform-specific features. Extract conversation metadata including AI model information and response times. Process Doubao-specific content types and formatting. Implement robust error handling for interface changes and dynamic content loading.",
+        "testStrategy": "Test extraction reliability across different Doubao conversation types and interface updates. Verify handling of Doubao-specific features and content formats.",
+        "priority": "high",
+        "dependencies": [
+          8
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 11,
+        "title": "Create real-time sync system between extension and web app",
+        "description": "Implement bidirectional communication and data synchronization between browser extension and web application",
+        "details": "Set up message passing system using postMessage for extension-to-web-app communication. Implement conversation data normalization and transformation from platform formats to unified schema. Create sync status indicators and conflict resolution for duplicate conversations. Add retry mechanisms for failed sync operations and offline queuing. Implement incremental sync to avoid data duplication.",
+        "testStrategy": "Test real-time sync reliability, conflict resolution, offline behavior, and performance with multiple simultaneous conversations. Verify data integrity and sync status accuracy.",
+        "priority": "high",
+        "dependencies": [
+          2,
+          8,
+          9,
+          10
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 12,
+        "title": "Implement built-in conversation window with iframe embedding",
+        "description": "Create a modal window system for continuing conversations within the application using iframe embedding",
+        "details": "Build a draggable, resizable modal window component with title bar and controls. Implement iframe embedding for AI platform websites with proper sandboxing and security measures. Add window management features (minimize, maximize, close). Handle CSP restrictions and provide fallback to new tab opening. Implement loading states, error handling, and window position persistence. Add keyboard shortcuts (ESC to close) and proper focus management.",
+        "testStrategy": "Test iframe loading across different platforms, drag/resize functionality, CSP handling, and fallback mechanisms. Verify security measures and window management features.",
+        "priority": "medium",
+        "dependencies": [
+          7,
+          8
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 13,
+        "title": "Create conversation management operations (bulk actions, export)",
+        "description": "Implement bulk operations and export functionality for conversation management",
+        "details": "Build bulk selection system with keyboard shortcuts and visual feedback. Implement bulk operations: move to folder, delete, export to multiple formats (Markdown, JSON, HTML). Create individual conversation operations: edit title, move, delete, export, open in platform. Add undo/redo functionality for destructive operations. Implement progress indicators for bulk operations and proper error handling.",
+        "testStrategy": "Test bulk operations with large selections, export format accuracy, undo/redo functionality, and error handling. Verify performance with thousands of selected conversations.",
+        "priority": "medium",
+        "dependencies": [
+          4,
+          5,
+          7
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 14,
+        "title": "Implement settings page and user preferences",
+        "description": "Create a comprehensive settings page for application configuration and user preferences",
+        "details": "Build a tabbed settings interface with categories: General, Sync, Appearance, Data Management. Implement language selection (Chinese/English), theme switching (light/dark/system), font size adjustment, and code highlighting themes. Create sync settings for platform selection, frequency control, and manual triggers. Add data management with statistics, export/import functionality, and clear data options with proper warnings. Store preferences in localStorage and sync across sessions.",
+        "testStrategy": "Test all settings persistence, theme switching, language changes, and data management operations. Verify settings validation and user feedback mechanisms.",
+        "priority": "low",
+        "dependencies": [
+          3,
+          11
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 15,
+        "title": "Add PWA support and offline functionality",
+        "description": "Transform the web application into a Progressive Web App with offline capabilities",
+        "details": "Implement service worker for offline caching and background sync. Create web app manifest with proper icons, splash screens, and display modes. Add install prompt and offline detection. Cache essential assets and implement offline-first architecture for conversation viewing. Implement background sync for queued operations when connectivity is restored. Add network status indicators and offline mode restrictions.",
+        "testStrategy": "Test PWA installation, offline functionality, background sync, and caching strategies. Verify service worker updates and network status handling.",
+        "priority": "low",
+        "dependencies": [
+          1,
+          2,
+          3,
+          14
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-11-14T11:40:41.943Z",
+      "updated": "2025-11-14T12:12:07.220Z",
+      "description": "Tasks for master context"
+    }
+  }
+}
